@@ -4,7 +4,7 @@ class StudentRecordsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @student_records = StudentRecord.all
+    @pagy, @student_records = pagy(StudentRecord.all)
   end
 
   def import
