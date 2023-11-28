@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+david_record:
+  last_name: Bono
+  first_name: David
+  email: bono@example.com
+  test1: 57
+  test2: 34
+  test3: 54
+  test4: 44
+  final: 34
+  grade: C
+  status: Fail
+
+ana_record:
+  last_name: Bona
+  first_name: Ana
+  email: bona@example.com
+  test1: 90
+  test2: 89
+  test3: 94
+  test4: 85
+  final: 99
+  grade: A
+  status: Pass
