@@ -10,4 +10,12 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  def assert_text(text)
+    assert_select '*', text: /#{text}/
+  end
+
+  def assert_no_text(text)
+    assert_select '*', text: /#{text}/, count: 0
+  end
 end

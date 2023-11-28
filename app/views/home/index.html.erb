@@ -1,1 +1,7 @@
-<h1>Welcome!</h1>
+<h1>Welcome! <%= current_user&.email %></h1>
+<% if user_signed_in? %>
+  <%= button_to "logout", destroy_user_session_path, method: :delete  %>
+<% else %>
+  <%= link_to 'Sign up', new_user_registration_path %>
+  <%= link_to 'Log in', new_user_session_path %>
+<% end%>
