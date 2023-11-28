@@ -4,4 +4,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+
+  resources :student_records do
+    collection do
+      post :import
+    end
+  end
 end

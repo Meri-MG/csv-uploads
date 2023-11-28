@@ -19,4 +19,24 @@ class StudentRecordTest < ActiveSupport::TestCase
     student_record.update(email: student_records(:david_record).email)
     assert_includes student_record.errors[:email], "has already been taken"
   end
+
+  test '#import' do
+    file = File.open(file_fixture('student_records.csv'))
+
+    assert File.exist?(file)
+
+    assert_difference('StudentRecord.count', 3) do
+      StudentRecord.import(file)
+    end
+
+    assert_equal 'Robert', StudentRecord.last.first_name
+    assert_equal 'Doe', StudentRecord.last.last_name
+    assert_equal 'robert.doe@example.com', StudentRecord.last.email
+    assert_equal 92, StudentRecord.last.test1
+    assert_equal 90, StudentRecord.last.final
+    assert_equal 'A', StudentRecord.last.grade
+    assert_equal 'Pass', StudentRecord.last.status
+
+    StudentRecord.destroy_all
+  end
 end

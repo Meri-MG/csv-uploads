@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateStudentRecords < ActiveRecord::Migration[7.0]
   def change
     create_table :student_records do |t|
