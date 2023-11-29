@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_28_074551) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_29_152404) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "student_records", force: :cascade do |t|
-    t.string "last_name", default: "", null: false
-    t.string "first_name", default: "", null: false
+    t.string "surname", default: "", null: false
+    t.string "name", default: "", null: false
     t.string "email", default: "", null: false
     t.integer "test1"
     t.integer "test2"
@@ -27,6 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_074551) do
     t.string "status", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "rank"
     t.index ["email"], name: "index_student_records_on_email"
   end
 
