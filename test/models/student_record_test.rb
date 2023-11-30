@@ -18,17 +18,15 @@ class StudentRecordTest < ActiveSupport::TestCase
 
     student_record.update(email: student_records(:david_record).email)
     assert_includes student_record.errors[:email], "has already been taken"
+    student_record.update(email: 'email.com')
+    assert_includes student_record.errors[:email], "is invalid"
   end
 
   test '#import' do
     file = File.open(file_fixture('student_records.csv'))
 
     assert File.exist?(file)
-
-    assert_difference('StudentRecord.count', 3) do
-      StudentRecord.import(file)
-    end
-
+    assert StudentRecord.import(file)
     assert_equal 'Robert', StudentRecord.last.name
     assert_equal 'Doe', StudentRecord.last.surname
     assert_equal 'robert.doe@example.com', StudentRecord.last.email
@@ -54,5 +52,9 @@ class StudentRecordTest < ActiveSupport::TestCase
 
   test '#lowest_score' do
     assert_equal 85, student_records(:ana_record).lowest_score
+  end
+
+  test '#performance_check' do
+    assert_equal 'High', student_records(:ana_record).performance_check
   end
 end

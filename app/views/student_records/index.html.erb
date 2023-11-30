@@ -1,11 +1,6 @@
-<h1>Student records</h1>
+<h1>Student records</h1> 
 
 <%= form_with(url: import_student_records_path, method: :post) do |f| %>
-<% if flash.now[:error].present? %>
-    <div class="alert alert-danger">
-      <%= flash.now[:error] %>
-    </div>
-  <% end %>
   <%= f.file_field :file, accept: '.csv' %>
   <%= f.submit 'Import' %>
 <% end %>
@@ -27,30 +22,36 @@
       <th>Total scores avg</th>
       <th>Highest score</th>
       <th>Lowest score</th>
+      <th>Performance</th>
     </tr>
   </thead>
-
-  <% @student_records.each do |student_record| %>
-    <tbody>
-      <tr>
-        <td><%= student_record.name %></td>
-        <td><%= student_record.surname %></td>
-        <td><%= student_record.email %></td>
-        <td><%= student_record.test1 %></td>
-        <td><%= student_record.test2 %></td>
-        <td><%= student_record.test3 %></td>
-        <td><%= student_record.test4 %></td>
-        <td><%= student_record.final %></td>
-        <td><%= student_record.grade %></td>
-        <td><%= student_record.status %></td>
-        <td><%= student_record.total_scores_sum %></td>
-        <td><%= student_record.total_scores_avg %></td>
-        <td><%= student_record.highest_score %></td>
-        <td><%= student_record.lowest_score %></td>
-      </tr>
-    </tbody>
+  <% if @student_records.any? %>
+    <% @student_records.each do |student_record| %>
+      <tbody>
+        <tr>
+          <td><%= student_record.name %></td>
+          <td><%= student_record.surname %></td>
+          <td><%= student_record.email %></td>
+          <td><%= student_record.test1 %></td>
+          <td><%= student_record.test2 %></td>
+          <td><%= student_record.test3 %></td>
+          <td><%= student_record.test4 %></td>
+          <td><%= student_record.final %></td>
+          <td><%= student_record.grade %></td>
+          <td><%= student_record.status %></td>
+          <td><%= student_record.total_scores_sum %></td>
+          <td><%= student_record.total_scores_avg %></td>
+          <td><%= student_record.highest_score %></td>
+          <td><%= student_record.lowest_score %></td>
+          <td><%= student_record.performance_check %></td>
+        </tr>
+      </tbody>
+    <% end %>
   <% end %>
 </table>
+
+
+<%= button_to 'Destroy all records', destroy_all_student_records_path, method: :delete %>
 
 <div>
   <%== pagy_nav(@pagy) %>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :student_records do
     collection do
       post :import
+      delete 'destroy_all', to: 'student_records#destroy_all'
     end
   end
 end

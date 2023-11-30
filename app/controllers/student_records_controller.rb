@@ -11,14 +11,19 @@ class StudentRecordsController < ApplicationController
     file = params[:file]
     return redirect_to student_records_path, notice: "Please upload only CSV files" unless file.content_type == 'text/csv'
 
-    file = params[:file]
-    validation_errors = StudentRecord.import(file)
+    import_result = StudentRecord.import(file)
 
-    if validation_errors.empty?
-      redirect_to student_records_path, notice: 'CSV file imported successfully.'
+    if import_result[:success]
+      redirect_to student_records_path, notice: 'Student records were successfully imported!'
     else
-      flash.now[:error] = "CSV import failed: #{validation_errors.join('; ')}"
+      flash[:error] = "CSV import failed: #{import_result[:validation_errors].join('; ')}"
       redirect_to student_records_path
     end
+  end
+
+  def destroy_all
+    StudentRecord.destroy_all
+
+    redirect_to student_records_path, notice: 'All records have been successfully deleted.'
   end
 end
