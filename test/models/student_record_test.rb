@@ -26,7 +26,7 @@ class StudentRecordTest < ActiveSupport::TestCase
     file = File.open(file_fixture('student_records.csv'))
 
     assert File.exist?(file)
-    assert StudentRecord.import(file)
+    subject = StudentRecord.import(file, users(:bob))
     assert_equal 'Robert', StudentRecord.last.name
     assert_equal 'Doe', StudentRecord.last.surname
     assert_equal 'robert.doe@example.com', StudentRecord.last.email

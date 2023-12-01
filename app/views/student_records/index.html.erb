@@ -1,17 +1,24 @@
-<h1>Student records</h1> 
-<%= link_to 'Download Sample File', download_sample_student_records_path %>
-<%= link_to 'Clear all filters', student_records_path %>
+<div class = "w-4/5 mx-auto">
+  <div class="flex items-center justify-between mb-5">
+    <%= link_to '<--Back', root_path, class: "text-2xl text-blue-500 hover:underline" %>
+      <% if user_signed_in? %>
+        <%= button_to 'logout', destroy_user_session_path, method: :delete, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out'  %>
+     <% end %>
 
-<%= render 'search_form', q: @q %>
+  </div>
+  <div class="bg-white p-6 rounded-md shadow-md flex items-center justify-between space-x-4">
+    <%= form_with(url: import_student_records_path, method: :post, class: "p-6") do |f| %>
+      <%= f.file_field :file, accept: '.csv', class: "w-full p-2 border rounded-mdblock text-gray-600 text-sm font-medium mb-2" %>
+      <%= f.submit 'Import', class: "bg-indigo-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" %>
+    <% end %>
+    <%= button_to 'Destroy all records', destroy_all_student_records_path, method: :delete, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+  </div>
 
-<%= form_with(url: import_student_records_path, method: :post) do |f| %>
-  <%= f.file_field :file, accept: '.csv' %>
-  <%= f.submit 'Import' %>
-<% end %>
-
-
-<%= button_to 'Destroy all records', destroy_all_student_records_path, method: :delete %>
-
-<div>
-  <%== pagy_nav(@pagy) %>
+  <% if @student_records.any? %>
+    <%= turbo_frame_tag 'records_search' do %>
+      <%= render 'search_form', q: @q %>
+      <%= render 'table_of_records', student_records: @student_records, pagy: @pagy %>
+    <% end %>
+    <div class="loading-ring fixed-center-block hidden"><div>
+  <% end %>
 </div>

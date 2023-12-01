@@ -11,6 +11,7 @@ david_record:
   final: 34
   grade: C
   status: Fail
+  user: sam
 
 ana_record:
   surname: Bona
@@ -23,3 +24,4 @@ ana_record:
   final: 99
   grade: A
   status: Pass
+  user: sam

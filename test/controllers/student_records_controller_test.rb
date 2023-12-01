@@ -17,7 +17,6 @@ class StudentRecordsControllerTest < ActionDispatch::IntegrationTest
     get student_records_path
 
     assert_response :success
-    assert_text 'Student records'
   end
 
   test '#import with file of csv format' do
@@ -43,7 +42,7 @@ class StudentRecordsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to student_records_path
-    assert_equal 'Please upload only CSV files', flash[:notice]
+    assert_equal 'Please upload CSV files', flash[:notice]
   end
 
   test '#import fails' do
@@ -60,7 +59,7 @@ class StudentRecordsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#destroy_all' do
-    sign_in users(:bob)
+    sign_in users(:sam)
 
     assert_difference('StudentRecord.count', -2) do
       delete destroy_all_student_records_path

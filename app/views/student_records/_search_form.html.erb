@@ -1,11 +1,18 @@
-<%= search_form_for q do |f| %>
-  <%= f.label :status_eq, 'Status equals:' %>
-  <%= f.select :status_eq, options_for_select(status_options_to_select),  include_blank: 'All statuses' %>
-  <%= f.label :grade_eq, 'Grade equals:' %>
-  <%= f.select :grade_eq, options_for_select(grade_options_to_select), include_blank: 'All grades' %>
-  <div>
-    <%= f.label :s, 'Sort by:' %>
-    <%= f.select :s, options_for_select(sort_options_to_select.map { |opt| [opt.humanize, opt] }), include_blank: '' %>
-  </div>
-  <%= f.submit 'Search' %>
-<% end %>
+<div class='flex items-center justify-between bg-white space-x-4 max-w-md p-6 rounded-md shadow-md mt-5'>
+  <%= search_form_for q do |f| %>
+    <div class="flex-1 mr-4">
+      <%= f.label :status_eq, 'Status:', class: 'block text-gray-600 text-sm font-medium mt-2' %>
+      <%= f.select :status_eq, options_for_select(status_options_to_select),  include_blank: 'Please select', class: 'w-full p-2 border rounded-md' %>
+    </div>
+    <div class="flex-1 mr-4">
+      <%= f.label :grade_eq, 'Grade:', class: 'block text-gray-600 text-sm font-medium mt-2' %>
+      <%= f.select :grade_eq, options_for_select(grade_options_to_select), include_blank: 'Please select', class: 'w-full p-2 border rounded-md' %>
+      </div>
+      <div class="flex-1 mr-4 mb-4">
+        <%= f.label :s, 'Sort by:', class: 'block text-gray-600 text-sm font-medium mt-2' %>
+        <%= f.select :s, options_for_select(sort_options_to_select.map { |opt| [opt.humanize, opt] }), include_blank: 'Please select', class: 'w-full p-2 border rounded-md' %>
+      </div>
+      <%= f.submit 'Search', class: 'bg-indigo-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded' %>
+  <% end %>
+  <%= link_to 'Clear all filters', student_records_path, class: "bg-gray-300 hover:bg-gray-500 text-gray-600 font-bold py-2 px-4 rounded" %>
+</div>
