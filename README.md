@@ -26,6 +26,9 @@
   ```
   bundle install
   ```
+  ```
+  bundle exec rake assets:precompile
+  ```
 
 - After installing bundle please run the following commands
 
