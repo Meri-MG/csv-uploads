@@ -3,26 +3,17 @@
 require 'csv'
 
 class StudentRecord < ApplicationRecord
-  scope :sorted_results, ->(sort_option) do
-    case sort_option
-    when 'name'
-      order(:name)
-    when 'final'
-      order(final: :desc)
-    else
-      order(:surname)
-    end
-  end
+  belongs_to :user
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   validates :name, :surname, :grade, :status, presence: true
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: true
+                    uniqueness: { scope: :user_id }
   validates :test1, :test2, :test3, :test4, :final, numericality:  { in: 0..100 } 
 
-  def self.import(file)
+  def self.import(file, user)
     result = { success: false, validation_errors: [] }
     required_columns = new.required_columns
     csv = new.csv_file(file)
@@ -36,6 +27,7 @@ class StudentRecord < ApplicationRecord
     else
       csv.each_with_index do |row, i|
         student_record = new(row.to_hash)
+        student_record.user = user
 
         unless student_record.save
           result[:validation_errors].concat(["Row #{i + 1}: #{student_record.errors.full_messages.join(', ')}, delete the records and import again"])

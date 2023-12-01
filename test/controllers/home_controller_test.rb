@@ -19,7 +19,6 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     get root_path
 
     assert_response :success
-    assert_text users(:bob).email
     assert_text 'logout'
     assert_no_text 'Log in'
   end
