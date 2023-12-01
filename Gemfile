@@ -76,3 +76,5 @@ gem "devise", "~> 4.9"
 gem 'pagy'
 
 gem 'ransack'
+
+gem "tailwindcss-rails", "~> 2.0"
