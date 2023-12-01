@@ -13,7 +13,7 @@
 
 - [Install Ruby](https://www.ruby-lang.org/en/documentation/installation/) on your local machine 
 - [Install Ruby on Rails](https://guides.rubyonrails.org/v5.1/getting_started.html)
-- Clone [this repository](https://github.com/Meri-MG/budget-app-rails)
+- Clone [this repository](https://github.com/Meri-MG/csv-uploads)
 
   ```
   git clone git@github.com:Meri-MG/csv-uploads.git
