@@ -1,24 +1,49 @@
-# README
+## Upload student records via csv files
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+> Our user-friendly platform allows you to upload student records via csv file and observe academic results of your students through the automatic operations we make after your upload. 
 
-Things you may want to cover:
+## Built With
 
-* Ruby version
+- Ruby
+- Ruby on Rails
+- PostgreSQL
+- Tailwind
 
-* System dependencies
+## Getting started
 
-* Configuration
+- [Install Ruby](https://www.ruby-lang.org/en/documentation/installation/) on your local machine 
+- [Install Ruby on Rails](https://guides.rubyonrails.org/v5.1/getting_started.html)
+- Clone [this repository](https://github.com/Meri-MG/budget-app-rails)
+  ```
+  git clone git@github.com:Meri-MG/csv-uploads.git
+  ```
+- To get started, In the root directory run:
+  ```
+  gem install bundler
+  ```
+  Then run:
+  ```
+  bundle install
+  ```
 
-* Database creation
+## After installing bundle
 
-* Database initialization
+  Please run the following commands `rails db:create` `rails db:migrate` `rails s`
 
-* How to run the test suite
+  Open the browser with `localhost:3000`
 
-* Services (job queues, cache servers, search engines, etc.)
+## Tests
+  ```
+  bundle exec rails test
+  ```
+  Or
+  ```
+  rails test
+  ```
 
-* Deployment instructions
+## Author
 
-* ...
+  :woman: **Meri Gogichashvili**
+
+  - [GitHub](https://github.com/Meri-MG)
+  - [LinkedIn](https://www.linkedin.com/in/meri-gogichashvili/)
