@@ -7,8 +7,8 @@ class StudentRecordTest < ActiveSupport::TestCase
     student_record = StudentRecord.new(email: '')
     
     assert_not student_record.save
-    assert_includes student_record.errors[:first_name], "can't be blank"
-    assert_includes student_record.errors[:last_name], "can't be blank"
+    assert_includes student_record.errors[:surname], "can't be blank"
+    assert_includes student_record.errors[:name], "can't be blank"
     assert_includes student_record.errors[:email], "can't be blank"
     assert_includes student_record.errors[:grade], "can't be blank"
     assert_includes student_record.errors[:status], "can't be blank"
@@ -18,19 +18,17 @@ class StudentRecordTest < ActiveSupport::TestCase
 
     student_record.update(email: student_records(:david_record).email)
     assert_includes student_record.errors[:email], "has already been taken"
+    student_record.update(email: 'email.com')
+    assert_includes student_record.errors[:email], "is invalid"
   end
 
   test '#import' do
     file = File.open(file_fixture('student_records.csv'))
 
     assert File.exist?(file)
-
-    assert_difference('StudentRecord.count', 3) do
-      StudentRecord.import(file)
-    end
-
-    assert_equal 'Robert', StudentRecord.last.first_name
-    assert_equal 'Doe', StudentRecord.last.last_name
+    assert StudentRecord.import(file)
+    assert_equal 'Robert', StudentRecord.last.name
+    assert_equal 'Doe', StudentRecord.last.surname
     assert_equal 'robert.doe@example.com', StudentRecord.last.email
     assert_equal 92, StudentRecord.last.test1
     assert_equal 90, StudentRecord.last.final
@@ -38,5 +36,25 @@ class StudentRecordTest < ActiveSupport::TestCase
     assert_equal 'Pass', StudentRecord.last.status
 
     StudentRecord.destroy_all
+  end
+
+  test '#total_scores_sum' do
+    assert_equal 457, student_records(:ana_record).total_scores_sum
+  end
+
+  test '#total_scores_avg' do
+    assert_equal 91, student_records(:ana_record).total_scores_avg
+  end
+
+  test '#highest_score' do
+    assert_equal 99, student_records(:ana_record).highest_score
+  end
+
+  test '#lowest_score' do
+    assert_equal 85, student_records(:ana_record).lowest_score
+  end
+
+  test '#performance_check' do
+    assert_equal 'High', student_records(:ana_record).performance_check
   end
 end

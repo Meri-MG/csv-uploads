@@ -1,0 +1,11 @@
+<%= search_form_for q do |f| %>
+  <%= f.label :status_eq, 'Status equals:' %>
+  <%= f.select :status_eq, options_for_select(status_options_to_select),  include_blank: 'All statuses' %>
+  <%= f.label :grade_eq, 'Grade equals:' %>
+  <%= f.select :grade_eq, options_for_select(grade_options_to_select), include_blank: 'All grades' %>
+  <div>
+    <%= f.label :s, 'Sort by:' %>
+    <%= f.select :s, options_for_select(sort_options_to_select.map { |opt| [opt.humanize, opt] }), include_blank: '' %>
+  </div>
+  <%= f.submit 'Search' %>
+<% end %>

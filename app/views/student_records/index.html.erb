@@ -1,44 +1,16 @@
-<h1>Student records</h1>
+<h1>Student records</h1> 
+<%= link_to 'Download Sample File', download_sample_student_records_path %>
+<%= link_to 'Clear all filters', student_records_path %>
 
-<%= form_with url: import_student_records_path, method: :post do |f| %>
+<%= render 'search_form', q: @q %>
+
+<%= form_with(url: import_student_records_path, method: :post) do |f| %>
   <%= f.file_field :file, accept: '.csv' %>
   <%= f.submit 'Import' %>
 <% end %>
 
-<h3>Student records count <%= @student_records.count %></h3>
-<table>
-  <thead>
-    <tr>
-      <th>Last Name</th>
-      <th>First Name</th>
-      <th>Email</th>
-      <th>Test1</th>
-      <th>Test2</th>
-      <th>Test3</th>
-      <th>Test4</th>
-      <th>Final</th>
-      <th>Grade</th>
-      <th>Status</th>
-    </tr>
-  </thead>
 
-  <% @student_records.each do |student_record| %>
-    <tbody>
-      <tr>
-        <td><%= student_record.first_name %></td>
-        <td><%= student_record.last_name %></td>
-        <td><%= student_record.email %></td>
-        <td><%= student_record.test1 %></td>
-        <td><%= student_record.test2 %></td>
-        <td><%= student_record.test3 %></td>
-        <td><%= student_record.test4 %></td>
-        <td><%= student_record.final %></td>
-        <td><%= student_record.grade %></td>
-        <td><%= student_record.status %></td>
-      </tr>
-    </tbody>
-  <% end %>
-</table>
+<%= button_to 'Destroy all records', destroy_all_student_records_path, method: :delete %>
 
 <div>
   <%== pagy_nav(@pagy) %>
