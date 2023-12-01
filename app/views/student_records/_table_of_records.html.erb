@@ -1,0 +1,44 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Email</th>
+      <th>Test1</th>
+      <th>Test2</th>
+      <th>Test3</th>
+      <th>Test4</th>
+      <th>Final</th>
+      <th>Grade</th>
+      <th>Status</th>
+      <th>Total scores sum</th>
+      <th>Total scores avg</th>
+      <th>Highest score</th>
+      <th>Lowest score</th>
+      <th>Performance</th>
+    </tr>
+  </thead>
+  <% if @student_records.any? %>
+    <% @student_records.each do |student_record| %>
+      <tbody>
+        <tr>
+          <td><%= student_record.name %></td>
+          <td><%= student_record.surname %></td>
+          <td><%= student_record.email %></td>
+          <td><%= student_record.test1 %></td>
+          <td><%= student_record.test2 %></td>
+          <td><%= student_record.test3 %></td>
+          <td><%= student_record.test4 %></td>
+          <td><%= student_record.final %></td>
+          <td><%= student_record.grade %></td>
+          <td><%= student_record.status %></td>
+          <td><%= student_record.total_scores_sum %></td>
+          <td><%= student_record.total_scores_avg %></td>
+          <td><%= student_record.highest_score %></td>
+          <td><%= student_record.lowest_score %></td>
+          <td><%= student_record.performance_check %></td>
+        </tr>
+      </tbody>
+    <% end %>
+  <% end %>
+</table>

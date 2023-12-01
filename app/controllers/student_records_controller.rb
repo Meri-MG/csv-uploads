@@ -4,7 +4,8 @@ class StudentRecordsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @pagy, @student_records = pagy(StudentRecord.order(surname: :asc))
+    @q = StudentRecord.ransack(params[:q])
+    @pagy, @student_records = pagy(@q.result)
   end
 
   def import
@@ -25,5 +26,11 @@ class StudentRecordsController < ApplicationController
     StudentRecord.destroy_all
 
     redirect_to student_records_path, notice: 'All records have been successfully deleted.'
+  end
+
+  def download_sample
+    file_path = Rails.root.join('public', 'student_records.csv')
+
+    send_file(file_path, filename: 'student_records.csv', type: 'text/csv')
   end
 end

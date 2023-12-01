@@ -3,6 +3,17 @@
 require 'csv'
 
 class StudentRecord < ApplicationRecord
+  scope :sorted_results, ->(sort_option) do
+    case sort_option
+    when 'name'
+      order(:name)
+    when 'final'
+      order(final: :desc)
+    else
+      order(:surname)
+    end
+  end
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   validates :name, :surname, :grade, :status, presence: true
@@ -73,6 +84,16 @@ class StudentRecord < ApplicationRecord
 
   def required_columns
     %w[name surname email test1 test2 test3 test4 final grade status]
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    [
+      "grade",
+      "status",
+      "name",
+      "surname",
+      "final"
+    ]
   end
 
   private
